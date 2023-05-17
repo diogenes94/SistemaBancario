@@ -19,11 +19,13 @@ public class TelaNovaAgencia extends javax.swing.JDialog {
     public TelaNovaAgencia(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setLocationRelativeTo(parent);
     }
     
     public TelaNovaAgencia(java.awt.Dialog parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setLocationRelativeTo(parent);
     }
 
     /**

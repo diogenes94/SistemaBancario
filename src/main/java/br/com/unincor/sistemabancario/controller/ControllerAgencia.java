@@ -4,7 +4,9 @@ import br.com.unincor.sistemabancario.exceptions.AgenciaException;
 import br.com.unincor.sistemabancario.model.dao.AgenciaDao;
 import br.com.unincor.sistemabancario.model.domain.Agencia;
 import br.com.unincor.sistemabancario.utils.GerarMensagens;
+import br.com.unincor.sistemabancario.view.TelaCadastroAgencia;
 import br.com.unincor.sistemabancario.view.TelaNovaAgencia;
+import br.com.unincor.sistemabancario.view.tables.TabelaAgencia;
 
 /**
  *
@@ -36,6 +38,15 @@ public class ControllerAgencia {
         
         GerarMensagens.alerta(t, "Salvo com sucesso!");
         t.dispose();
+    }
+    
+    public void pesquisar(TelaCadastroAgencia t) {
+        
+        TabelaAgencia tabelaAgencia = 
+                (TabelaAgencia) t.getjTable1().getModel();
+        var agenciaDao = new AgenciaDao();
+        tabelaAgencia.setRegistros(
+                agenciaDao.buscarTodasAgencias());
     }
 
 }
