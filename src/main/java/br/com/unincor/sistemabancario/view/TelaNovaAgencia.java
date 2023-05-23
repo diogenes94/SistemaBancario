@@ -2,6 +2,7 @@ package br.com.unincor.sistemabancario.view;
 
 import br.com.unincor.sistemabancario.controller.ControllerAgencia;
 import br.com.unincor.sistemabancario.exceptions.AgenciaException;
+import br.com.unincor.sistemabancario.model.domain.Agencia;
 import br.com.unincor.sistemabancario.utils.GerarMensagens;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,11 +23,21 @@ public class TelaNovaAgencia extends javax.swing.JDialog {
         setLocationRelativeTo(parent);
     }
     
+    private Agencia agenciaEdit;
+    
     public TelaNovaAgencia(java.awt.Dialog parent, boolean modal) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(parent);
     }
+    
+    public TelaNovaAgencia(java.awt.Dialog parent, boolean modal,
+            Agencia agencia) {
+        this(parent, modal);
+        setAgenciaEdit(agencia);
+    }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -144,6 +155,24 @@ public class TelaNovaAgencia extends javax.swing.JDialog {
         return campoTelefone;
     }
 
+    public Agencia getAgenciaEdit() {
+        return agenciaEdit;
+    }
+
+    public void setAgenciaEdit(Agencia agenciaEdit) {
+        this.agenciaEdit = agenciaEdit;
+        if(agenciaEdit == null) {
+            campoNome.setText(null);
+            campoEndereco.setText(null);
+            campoTelefone.setText(null);
+        } else {
+            campoNome.setText(agenciaEdit.getNome());
+            campoEndereco.setText(agenciaEdit.getEndereco());
+            campoTelefone.setText(agenciaEdit.getTelefone());
+        }
+    }
+
+    
     
     /**
      * @param args the command line arguments

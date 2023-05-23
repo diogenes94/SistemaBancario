@@ -29,14 +29,21 @@ public class ControllerAgencia {
                     + " informado");
         }
         
-        var agencia = new Agencia(null, t.getCampoNome().getText(),
+        Integer id = t.getAgenciaEdit() == null ? 
+                null : t.getAgenciaEdit().getId();
+        var agencia = new Agencia(id, t.getCampoNome().getText(),
                 t.getCampoEndereco().getText(),
                 t.getCampoTelefone().getText());
         
         var agenciaDao = new AgenciaDao();
-        agenciaDao.inserir(agencia);
+        if(t.getAgenciaEdit() == null) {
+            agenciaDao.inserir(agencia);
+        } else {
+            agenciaDao.atualizar(agencia);
+        }
         
         GerarMensagens.alerta(t, "Salvo com sucesso!");
+        pesquisar((TelaCadastroAgencia) t.getParent());
         t.dispose();
     }
     
@@ -47,6 +54,28 @@ public class ControllerAgencia {
         var agenciaDao = new AgenciaDao();
         tabelaAgencia.setRegistros(
                 agenciaDao.buscarTodasAgencias());
+    }
+    
+    public void abrirTelaEdicao(TelaCadastroAgencia t) 
+            throws AgenciaException {
+        
+        if(t.getjTable1().getSelectedRowCount() == 0) {
+            throw new AgenciaException(
+                    "Nenhum registro foi selecionado!");
+        }
+        
+        /* Transforma a tabela abstrata no seu formato concreto */
+        TabelaAgencia tabelaAgencia = (TabelaAgencia) 
+                t.getjTable1().getModel();
+        
+        /* retorna a linha selecionada na tabela */
+        int row = t.getjTable1().getSelectedRow();
+        
+        /* Recupera o registro na lista de objetos da tabela */
+        var agencia = tabelaAgencia.getRegistros().get(row);
+        
+        new TelaNovaAgencia(t, true, agencia)
+                .setVisible(true);
     }
 
 }
