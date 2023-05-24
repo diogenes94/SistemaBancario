@@ -51,7 +51,7 @@ public class Agencia {
 
     @Override
     public String toString() {
-        return "Agencia{" + "id=" + id + ", nome=" + nome + ", endereco=" + endereco + ", telefone=" + telefone + '}';
+        return nome + " - " + endereco;
     }
     
     
