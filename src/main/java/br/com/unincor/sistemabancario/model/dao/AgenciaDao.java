@@ -34,7 +34,7 @@ public class AgenciaDao {
 
     public List<Agencia> buscarTodasAgencias() {
         String sql = """
-                     SELECT * FROM AGENCIAS
+                     SELECT * FROM AGENCIAS ORDER BY NOME
                      """;
         List<Agencia> agencias = new ArrayList<>();
         /* Cria uma lista vazia*/

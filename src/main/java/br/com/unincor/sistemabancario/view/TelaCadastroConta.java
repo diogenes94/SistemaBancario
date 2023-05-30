@@ -40,6 +40,11 @@ public class TelaCadastroConta extends javax.swing.JDialog {
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jTable1.setModel(new TabelaConta());
         jScrollPane1.setViewportView(jTable1);
@@ -96,6 +101,11 @@ public class TelaCadastroConta extends javax.swing.JDialog {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         new TelaNovaConta(this, true).setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        var controllerConta = new ControllerConta();
+        controllerConta.pesquisarContas(this);
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments

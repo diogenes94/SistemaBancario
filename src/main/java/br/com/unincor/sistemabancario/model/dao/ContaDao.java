@@ -27,7 +27,8 @@ public class ContaDao {
                             agencias.telefone as telefone_agencia
                      from contas 
                      inner join clientes on clientes.id = contas.cliente_id
-                     inner join agencias on agencias.id = contas.agencia_id;
+                     inner join agencias on agencias.id = contas.agencia_id
+                     order by clientes.nome;
                      """;
         List<Conta> contas = new ArrayList<>();
         try(Connection con = MySQL.getConnection(); 
@@ -65,6 +66,22 @@ public class ContaDao {
         conta.setSaldo(rs.getDouble("saldo"));
         
         return conta;
+    }
+    
+    public void inserir(Conta conta) {
+        String sql = """
+                     INSERT INTO CONTAS(CLIENTE_ID, AGENCIA_ID, SALDO)
+                     VALUES (?, ?, ?);
+                     """;
+        try(Connection con = MySQL.getConnection();
+                PreparedStatement stmt = con.prepareStatement(sql)) {
+            stmt.setInt(1, conta.getCliente().getId());
+            stmt.setInt(2, conta.getAgencia().getId());
+            stmt.setDouble(3, conta.getSaldo());
+            stmt.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(ContaDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public static void main(String[] args) {

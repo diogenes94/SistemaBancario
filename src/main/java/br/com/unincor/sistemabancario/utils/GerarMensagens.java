@@ -22,4 +22,11 @@ public class GerarMensagens {
                 "Erro", JOptionPane.ERROR_MESSAGE);
     }
     
+    public static boolean confirmar(Component parente, Object mensagem) {
+        var retorno = JOptionPane.showConfirmDialog(parente,
+                mensagem, "Confirme:",
+                JOptionPane.YES_NO_OPTION);
+        return JOptionPane.YES_OPTION == retorno;
+    }
+    
 }

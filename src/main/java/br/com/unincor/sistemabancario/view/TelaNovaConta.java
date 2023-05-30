@@ -4,7 +4,14 @@
  */
 package br.com.unincor.sistemabancario.view;
 
+import br.com.unincor.sistemabancario.controller.ControllerAgencia;
+import br.com.unincor.sistemabancario.controller.ControllerCliente;
 import br.com.unincor.sistemabancario.controller.ControllerConta;
+import br.com.unincor.sistemabancario.exceptions.ContaException;
+import br.com.unincor.sistemabancario.utils.GerarMensagens;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JComboBox;
 
 /**
  *
@@ -40,8 +47,8 @@ public class TelaNovaConta extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        comboCliente = new javax.swing.JComboBox<>();
+        comboAgencia = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -57,6 +64,11 @@ public class TelaNovaConta extends javax.swing.JDialog {
         jLabel2.setText("Agência:");
 
         jButton1.setText("Salvar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -65,7 +77,7 @@ public class TelaNovaConta extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBox1, 0, 486, Short.MAX_VALUE)
+                    .addComponent(comboCliente, 0, 486, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jButton1))
@@ -74,7 +86,7 @@ public class TelaNovaConta extends javax.swing.JDialog {
                             .addComponent(jLabel1)
                             .addComponent(jLabel2))
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(comboAgencia, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -83,12 +95,12 @@ public class TelaNovaConta extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addGap(3, 3, 3)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(comboCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 194, Short.MAX_VALUE)
+                .addComponent(comboAgencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addContainerGap())
         );
@@ -114,8 +126,26 @@ public class TelaNovaConta extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        new ControllerConta().carregarAgenciasCombo(jComboBox2);
+        /* Carrega os combos no momento da inicialização da janela */
+        new ControllerAgencia().carregarAgenciasCombo(comboAgencia);
+        new ControllerCliente().carregarClientesCombo(comboCliente);
     }//GEN-LAST:event_formWindowOpened
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try {
+            new ControllerConta().salvar(this);
+        } catch (ContaException ex) {
+            GerarMensagens.erro(this, ex.getMessage());
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    public JComboBox<Object> getComboAgencia() {
+        return comboAgencia;
+    }
+
+    public JComboBox<Object> getComboCliente() {
+        return comboCliente;
+    }
 
     
     /**
@@ -161,9 +191,9 @@ public class TelaNovaConta extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<Object> comboAgencia;
+    private javax.swing.JComboBox<Object> comboCliente;
     private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<Object> jComboBox1;
-    private javax.swing.JComboBox<Object> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

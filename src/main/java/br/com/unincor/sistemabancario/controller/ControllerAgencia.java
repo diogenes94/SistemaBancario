@@ -7,6 +7,8 @@ import br.com.unincor.sistemabancario.utils.GerarMensagens;
 import br.com.unincor.sistemabancario.view.TelaCadastroAgencia;
 import br.com.unincor.sistemabancario.view.TelaNovaAgencia;
 import br.com.unincor.sistemabancario.view.tables.TabelaAgencia;
+import java.util.List;
+import javax.swing.JComboBox;
 
 /**
  *
@@ -76,6 +78,35 @@ public class ControllerAgencia {
         
         new TelaNovaAgencia(t, true, agencia)
                 .setVisible(true);
+    }
+
+    public void carregarAgenciasCombo(JComboBox<Object> comboBox) {
+        List<Agencia> agencias = new AgenciaDao().buscarTodasAgencias();
+        comboBox.removeAllItems();
+        comboBox.addItem("(Selecione)");
+        agencias.forEach(comboBox::addItem);
+    }
+    
+    public void excluirAgencia(TelaCadastroAgencia t) throws AgenciaException {
+        if(t.getjTable1().getSelectedRowCount() == 0) {
+            throw new AgenciaException("Nenhum registro foi selecionado!");
+        }
+        /* Pega a linha selecionada na tabela */
+        int row = t.getjTable1().getSelectedRow();
+        /* recupera o objeto da tabela a partir do jtable */
+        TabelaAgencia tabelaAgencia = (TabelaAgencia) t.getjTable1()
+                .getModel();
+        /* Obtém o objeto selecionado da lista */
+        Agencia agencia = tabelaAgencia.getRegistros().get(row);
+        /* Confirma a intenção de remover o objeto do banco de dados */
+        if(GerarMensagens.confirmar(t, "Deseja excluir "
+                + agencia.getNome() + "?")) {
+            /* Executa a instrução de deletar do banco de dados*/
+            var agenciaDao = new AgenciaDao();
+            agenciaDao.deletar(agencia.getId());
+            GerarMensagens.alerta(t, "Removido com sucesso!");
+        }
+        pesquisar(t);
     }
 
 }

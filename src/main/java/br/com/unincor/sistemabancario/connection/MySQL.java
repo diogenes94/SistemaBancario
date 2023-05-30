@@ -17,7 +17,7 @@ public class MySQL {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection connection = DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/sistema_bancario",
-                    "root", "masterkey");
+                    "root", "admin");
 
             return connection;
         } catch (ClassNotFoundException | SQLException ex) {
