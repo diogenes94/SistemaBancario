@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
- */
 package br.com.unincor.sistemabancario.view;
 
 import br.com.unincor.sistemabancario.controller.ControllerAgencia;
@@ -9,8 +5,6 @@ import br.com.unincor.sistemabancario.controller.ControllerCliente;
 import br.com.unincor.sistemabancario.controller.ControllerConta;
 import br.com.unincor.sistemabancario.exceptions.ContaException;
 import br.com.unincor.sistemabancario.utils.GerarMensagens;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JComboBox;
 
 /**

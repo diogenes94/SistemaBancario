@@ -1,11 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package br.com.unincor.sistemabancario.controller;
 
 import br.com.unincor.sistemabancario.exceptions.ContaException;
-import br.com.unincor.sistemabancario.model.dao.AgenciaDao;
 import br.com.unincor.sistemabancario.model.dao.ContaDao;
 import br.com.unincor.sistemabancario.model.domain.Agencia;
 import br.com.unincor.sistemabancario.model.domain.Cliente;
@@ -15,7 +10,6 @@ import br.com.unincor.sistemabancario.view.TelaCadastroConta;
 import br.com.unincor.sistemabancario.view.TelaNovaConta;
 import br.com.unincor.sistemabancario.view.tables.TabelaConta;
 import java.util.List;
-import javax.swing.JComboBox;
 
 /**
  *
