@@ -1,8 +1,22 @@
 package br.com.unincor.sistemabancario.model.domain;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "agencias")
 public class Agencia {
     
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    /* Anotação redundante - aplicável apenas quando o atributo
+    tiver o nome diferente do que está no banco*/
+    @Column(name = "nome")
     private String nome;
     private String endereco;
     private String telefone;
