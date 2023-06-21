@@ -24,7 +24,7 @@ public abstract class GenericDao<ID, T> implements Serializable {
     }
     
     protected EntityManager getEntityManager() {
-        if(entityManager == null) {
+        if(entityManager == null || !entityManager.isOpen()) {
             this.entityManager = HibernateUtil.getSessionFactory()
                     .createEntityManager();
         }

@@ -12,13 +12,20 @@ import org.hibernate.Session;
  * @author dioge
  */
 public class AgenciaDao extends GenericDao<Integer, Agencia>{
+    
+    public List<Agencia> buscarAgenciasPorNome(String nome) {
+        String sql = "from Agencia where nome like :nome";
+        Query query = getEntityManager().createQuery(sql,
+                Agencia.class);
+        query.setParameter("nome", "%" + nome + "%");
+        return query.getResultList();
+    }
 
     public static void main(String[] args) {
         //new AgenciaDao().buscarTudo().forEach(System.out::println);
         AgenciaDao agenciaDao = new AgenciaDao();
-        System.out.println(agenciaDao.buscarPorId(2));
-        
-//        agenciaDao.deletar(value);
+        agenciaDao.buscarAgenciasPorNome("Norte")
+                .forEach(System.out::println);
     }
 
 }

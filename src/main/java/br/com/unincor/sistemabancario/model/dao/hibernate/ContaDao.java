@@ -4,19 +4,17 @@
  */
 package br.com.unincor.sistemabancario.model.dao.hibernate;
 
-import br.com.unincor.sistemabancario.model.domain.Cliente;
+import br.com.unincor.sistemabancario.model.domain.Conta;
 
 /**
  *
  * @author dioge
  */
-public class ClienteDao extends GenericDao<Integer, Cliente>{
+public class ContaDao extends GenericDao<Integer, Conta>{
+    
     
     public static void main(String[] args) {
-        new ClienteDao().buscarTudo().forEach(cliente -> {
-            System.out.println("Escrevendo contas do cliente " + cliente);
-            cliente.getContas().forEach(System.out::println);
-        });
+        ContaDao contaDao = new ContaDao();
+        contaDao.buscarTudo().forEach(System.out::println);
     }
-    
 }

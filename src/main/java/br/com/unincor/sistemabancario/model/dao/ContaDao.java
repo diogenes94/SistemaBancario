@@ -63,7 +63,7 @@ public class ContaDao {
         conta.setId(rs.getInt("id"));
         conta.setCliente(cliente);
         conta.setAgencia(agencia);
-        conta.setSaldo(rs.getDouble("saldo"));
+        //conta.setSaldo(rs.getFloat("saldo"));
         
         return conta;
     }
@@ -77,7 +77,7 @@ public class ContaDao {
                 PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setInt(1, conta.getCliente().getId());
             stmt.setInt(2, conta.getAgencia().getId());
-            stmt.setDouble(3, conta.getSaldo());
+//            stmt.setDouble(3, conta.getSaldo());
             stmt.execute();
         } catch (SQLException ex) {
             Logger.getLogger(ContaDao.class.getName()).log(Level.SEVERE, null, ex);
